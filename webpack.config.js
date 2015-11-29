@@ -27,6 +27,8 @@ var DedupePlugin   = webpack.optimize.DedupePlugin;
 var DefinePlugin   = webpack.DefinePlugin;
 var BannerPlugin   = webpack.BannerPlugin;
 
+//For sass
+var bourbon = require('node-bourbon').includePaths;
 
 /*
  * Config
@@ -114,6 +116,12 @@ module.exports = {
 
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw' },
+
+      //Import sass in js
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass?includePaths[]=' + bourbon
+      },
 
       // Support for .ts files.
       { test: /\.ts$/,    loader: 'ts',

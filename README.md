@@ -85,9 +85,7 @@ angular2-webpack-starter/
  │   │   │   └──es6-shim.js                * ignore this file. This is needed to polyfill the browser to for ES6 features to similarly
  │   │   │
  │   │   ├──favicon.ico                    * replace me with your own favicon.ico
- │   │   ├──service-worker.js              * ignore this. Web App service worker that's not complete yet
  │   │   ├──robots.txt                     * for search engines to crawl your website
- │   │   ├──human.txt                      * for humans to know who the developers are
  │   │   │
  │   │   └──index.html                     * Index.html: where we place our script tags
  │   │
