@@ -12,7 +12,7 @@
     "watch": "webpack --watch",
     "server": "webpack-dev-server --inline --colors --display-error-details --display-cached --port 3000",
     "express": "node ./server/express-server-example.js",
-    "prod-server": "export NODE_ENV=production && node ./server/api.js",
+    "prod-server": "export NODE_ENV=production && webpack && node ./server/server.js",
     "express-install": "npm install express connect-history-api-fallback morgan body-parser cors --save",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start",

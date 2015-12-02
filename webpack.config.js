@@ -106,7 +106,7 @@ module.exports = {
       //Import sass in js
       {
         test: /\.scss$/,
-        loader: 'style!css!sass?includePaths[]=' + bourbon
+        loader: 'style!css!sass'
       },
 
       // Support for .ts files.
