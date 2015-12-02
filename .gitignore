@@ -52,3 +52,7 @@ __build__/**
 # IDE #
 .idea/
 *.swp
+
+#Config files
+config.json
+soundcloud.json
