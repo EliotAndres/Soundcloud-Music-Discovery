@@ -6,44 +6,18 @@
 
 <p align="center">
   <a href="https://angularclass.com" target="_blank">
-    <img src="https://cloud.githubusercontent.com/assets/1016365/9863762/a84fed4a-5af7-11e5-9dde-d5da01e797e7.png" alt="Webpack and Angular 2" width="500" height="320"/>
+    <img src="https://github.com/EliotAndres/Soundcloud-Music-Discovery/raw/master/src/public/img/logo.png" alt="Webpack and Angular 2" width="500" height="320"/>
   </a>
 </p>
-
-# Angular2 Webpack Starter [![Join Slack](https://img.shields.io/badge/slack-join-brightgreen.svg)](https://angularclass.com/slack-join) [![Join the chat at https://gitter.im/angularclass/angular2-webpack-starter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/angularclass/angular2-webpack-starter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
-
-> An Angular 2 starter kit featuring [Angular 2](https://angular.io) ([Router](https://angular.io/docs/js/latest/api/router/), [Forms](https://angular.io/docs/js/latest/api/forms/),
-[Http](https://angular.io/docs/js/latest/api/http/),
-[Services](https://gist.github.com/gdi2290/634101fec1671ee12b3e#_follow_@AngularClass_on_twitter),
-[Tests](https://angular.io/docs/js/latest/api/test/), [E2E](https://angular.github.io/protractor/#/faq#what-s-the-difference-between-karma-and-protractor-when-do-i-use-which-)), [Karma](https://karma-runner.github.io/), [Protractor](https://angular.github.io/protractor/), [Jasmine](https://github.com/jasmine/jasmine), [TypeScript](http://www.typescriptlang.org/), and [Webpack](http://webpack.github.io/) by [AngularClass](https://angularclass.com).
-
-> If you're looking for Angular 1.x please use [NG6-starter](https://github.com/angularclass/NG6-starter)  
-> If you're looking to learn about Webpack and ES6 Build Tools check out [ES6-build-tools](https://github.com/AngularClass/ES6-build-tools)
-
-This seed repo serves as an Angular 2 starter for anyone looking to get up and running with Angular 2 and TypeScript fast. Using a [Webpack](http://webpack.github.io/) for building our files and assisting with boilerplate. We're also using Protractor for our end-to-end story and Karma for our unit tests.
-* Best practices in file and application organization for Angular 2.
-* Ready to go build system using Webpack for working with TypeScript.
-* Angular 2 examples that are ready to go when experimenting with Angular 2.
-* A great Angular 2 seed repo for anyone who wants to start their project.
-* Testing Angular 2 code with Jasmine and Karma.
-* end-to-end Angular 2 code using Protractor.
-
-
-```coffeescript
-Warning: Angular 2.0 is not production ready yet!
-```
-[Is Angular 2 Ready Yet?](http://splintercode.github.io/is-angular-2-ready/)
-
 ### Quick start
 > Clone/Download the repo then edit `app.ts` inside [`/src/app/app.ts`](/src/app/app.ts)
 
 ```bash
-# clone our repo
-git clone https://github.com/angularclass/angular2-webpack-starter.git 
+# clone repo
+git clone https://github.com/EliotAndres/Soundcloud-Music-Discovery/
 
 # change directory to our repo
-cd angular2-webpack-starter
+cd soundcloud-music-discovery
 
 # install the repo with npm
 npm install
@@ -52,62 +26,6 @@ npm install
 npm start 
 ```
 go to [http://localhost:3000](http://localhost:3000) in your browser
-
-# Table of Contents
-* [File Structure](#file-structure)
-* [Getting Started](#getting-started)
-    * [Dependencies](#dependencies)
-    * [Installing](#installing)
-    * [Running the app](#running-the-app)
-* [Contributing](#contributing)
-* [TypeScript](#typescript)
-* [Frequently asked questions](#frequently-asked-questions)
-* [Support, Questions, or Feedback](#support-questions-or-feedback)
-* [License](#license)
-
-
-## File Structure
-We use the component approach in our starter. This is the new standard for developing Angular apps and a great way to ensure maintainable code by encapsulation of our behavior logic. A component is basically a self contained app usually in a single file or a folder with each concern as a file: style, template, specs, e2e, and component class. Here's how it looks:
-```
-angular2-webpack-starter/
- ├──src/                                   * our source files that will be compiled to javascript
- │   │
- │   ├──app/                               * WebApp: folder
- │   │   ├──app.ts                         * App.ts: a simple version of our App component components
- │   │   └──bootstrap.ts                   * entry file for app
- │   │
- │   ├──bindings/                          * where common files used throughout our app
- │   │   ├──location_bindings.ts           * injectables to change the Router location Strategy
- │   │   └──change_detection_bindings.ts   * injectables to change Angular's Change Detection Strategy
- │   │
- │   ├──public/                            * static assets are served here
- │   │   ├──lib/                           * static libraries
- │   │   │   └──es6-shim.js                * ignore this file. This is needed to polyfill the browser to for ES6 features to similarly
- │   │   │
- │   │   ├──favicon.ico                    * replace me with your own favicon.ico
- │   │   ├──service-worker.js              * ignore this. Web App service worker that's not complete yet
- │   │   ├──robots.txt                     * for search engines to crawl your website
- │   │   ├──human.txt                      * for humans to know who the developers are
- │   │   │
- │   │   └──index.html                     * Index.html: where we place our script tags
- │   │
- │   └──typings/                           * where we define our custom types
- │       ├──ng2.d.ts                       * where we patch angular2 types with our own types until it's fixed
- │       └──_custom.d.ts                   * we include all of our custom types here
- │
- ├──tsd_typings/                           * ignore this auto generated file from tsd
- │   └──tsd.d.ts                           * ignore this our main file for all of our type definitions
- │
- ├──test/                                  * this is our global unit tests and end-to-end tests
- │
- ├──spec.bundle.js                         * ignore this magic that sets up our angular 2 testing environment
- ├──karma.config.js                        * karma config for our unit tests
- ├──protractor.config.js                   * protractor config for our end-to-end tests
- ├──tsconfig.json                          * config that webpack uses for typescript
- ├──tsd.json                               * config that tsd uses for managing it's definitions
- ├──package.json                           * what npm uses to manage it's dependencies
- └──webpack.config.js                      * our webpack config
-```
 
 # Getting Started
 ## Dependencies
@@ -229,39 +147,6 @@ We have good experience using these editors:
   * The `EADDRINUSE` error means the port `3000` is currently being used and `EACCES` is lack of permission for webpack to build files to `./__build__/`
 * Why am I getting lots of warnings when starting the repo?
   * You need to run `tsd install` this happens when tsd didn't install correctly or at all
-
-
-# Support, Questions, or Feedback
-> Contact us anytime for anything about this repo or Angular 2
-
-* [Gitter: angular-class/angular2-webpack-starter](https://gitter.im/angularclass/angular2-webpack-starter)
-* [Twitter: @AngularClass](https://twitter.com/AngularClass)
-
-
-# Other Seed/Starter/Example Repos
-* [angular2-webpack-starter (AngularClass)](https://github.com/angularclass/angular2-webpack-starter)
-  * Client/Server, Webpack, TypeScript, TSD, Protractor, Karma, Jasmine, Env Dev/Prod, Server API
-* [ng2-play (Pawel Kozlowski)](https://github.com/pkozlowski-opensource/ng2-play)
-  * Client only, Minimalist, SystemJS, Gulp, TypeScript
-* [angular2-seed (Minko Gechev)](https://github.com/mgechev/angular2-seed)
-  * Client only, SystemJS, Gulp, TypeScript, TSD, Versioned, Env Dev/Prod
-* [ng2-lab (Roland Groza)](https://github.com/rolandjitsu/ng2-lab)
-  * Client only, ES6, TypeScript, Firebase, Gulp, Ci, TSD, TSLint
-* [ng2-jspm-seed (Rob Wormald)](https://github.com/robwormald/ng2-jspm-seed)
-  * Client only, TypeScript, TSD, Gulp, JSPM, Minimalist
-* [babel-angular2-app (Shuhei Kagawa)](https://github.com/shuhei/babel-angular2-app)
-  * Client only, Minimalist, Babel, ES6+, Webpack (outdated)
-  
-___
-
-enjoy — **AngularClass** 
-
-<br><br>
-
-[![AngularClass](https://cloud.githubusercontent.com/assets/1016365/9863770/cb0620fc-5af7-11e5-89df-d4b0b2cdfc43.png  "Angular Class")](https://angularclass.com)
-##[AngularClass](https://angularclass.com)
-> Learn AngularJS, Angular 2, and Modern Web Development form the best.
-> Looking for corporate Angular training, want to host us, or Angular consulting? patrick@angularclass.com
 
 # License
  [MIT](/LICENSE)
