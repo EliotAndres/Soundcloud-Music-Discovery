@@ -27,7 +27,6 @@ var DedupePlugin   = webpack.optimize.DedupePlugin;
 var DefinePlugin   = webpack.DefinePlugin;
 var BannerPlugin   = webpack.BannerPlugin;
 
-
 /*
  * Config
  */
@@ -67,17 +66,6 @@ module.exports = {
       'angular2/http'
     ],
     'app': [
-      // App
-
-      // './examples/  /bootstrap' <-- view examples
-
-      // './examples/rx-autosuggest/bootstrap'
-      // './examples/rx-draggable/bootstrap'
-      // './examples/rx-timeflies/bootstrap'
-      // './examples/game-tictactoe/bootstrap'
-      // './examples/simple-component/bootstrap'
-      // './examples/simple-todo/bootstrap'
-
       './src/app/bootstrap'
     ]
   },
@@ -114,6 +102,12 @@ module.exports = {
 
       // support for .html as raw text
       { test: /\.html$/,  loader: 'raw' },
+
+      //Import sass in js
+      {
+        test: /\.scss$/,
+        loader: 'style!css!sass?includePaths[]=' + bourbon
+      },
 
       // Support for .ts files.
       { test: /\.ts$/,    loader: 'ts',
@@ -152,7 +146,8 @@ module.exports = {
     new CommonsChunkPlugin({
       name: 'common',
       filename: 'common.js'
-    })
+    })//,
+    //new webpack.optimize.UglifyJsPlugin({minimize: true})
   ],
 
   /*
