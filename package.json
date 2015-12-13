@@ -11,8 +11,8 @@
     "clean-start": "npm run clean && npm start",
     "watch": "webpack --watch",
     "server": "webpack-dev-server --inline --colors --display-error-details --display-cached --port 3000",
-    "express": "node ./server/express-server-example.js",
     "prod-server": "export NODE_ENV=production && webpack && node ./server/server.js",
+    "dev-server": "export NODE_ENV=development && webpack && node ./server/server.js",
     "express-install": "npm install express connect-history-api-fallback morgan body-parser cors --save",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start",
@@ -43,6 +43,7 @@
     "express": "^4.13.3",
     "morgan": "^1.6.1",
     "reflect-metadata": "0.1.2",
+    "webpack-livereload-plugin": "^0.4.0",
     "zone.js": "0.5.8"
   },
   "devDependencies": {

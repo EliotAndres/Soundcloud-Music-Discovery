@@ -19,6 +19,9 @@ var path = require('path');
 // NPM
 var webpack = require('webpack');
 
+// Liver
+var LiveReloadPlugin = require('webpack-livereload-plugin');
+
 // Webpack Plugins
 var OccurenceOrderPlugin = webpack.optimize.OccurenceOrderPlugin;
 var CommonsChunkPlugin   = webpack.optimize.CommonsChunkPlugin;
@@ -147,8 +150,17 @@ module.exports = {
       name: 'common',
       filename: 'common.js'
     })//,
-    //new webpack.optimize.UglifyJsPlugin({minimize: true})
-  ],
+  ].concat(
+      NODE_ENV == 'development'
+      ? [new LiveReloadPlugin()]
+      : [
+        new webpack.optimize.UglifyJsPlugin({
+          compress: {
+            warnings: false,
+          },
+        }),
+      ]
+    ),
 
   /*
    * When using `templateUrl` and `styleUrls` please use `__filename`

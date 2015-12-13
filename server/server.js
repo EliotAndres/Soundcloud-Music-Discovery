@@ -46,7 +46,8 @@ if (NODE_ENV === 'development') {
     historyApiFallback: false, // won't work due to order
     inline: true,
     quiet: false,
-    noInfo: false,
+    hot: true,
+    noInfo: true,
     stats: { colors: true }
   });
   // Webpack express app that uses socket.io

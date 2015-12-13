@@ -6,19 +6,18 @@ var config = require('../config/config');
 @Component({
   selector: 'search-bar',
   template: `
-  <div class="search">
     <div class="wrapper">
-      <form class="search_form" (ng-submit)="searchTracks()">
-        <input [(ng-model)]="query" placeholder="Select a song you love" class="search_form_input"/>
-        <button class="search_form_button">></button>
+      <form class="search-bar_form" (ng-submit)="searchTracks()">
+        <input [(ng-model)]="query" placeholder="Pick a song you love" class="search-bar_form_input"/>
+        <button class="search-bar_form_button">></button>
       </form>
+
+      <ul *ng-if="items" class="search-bar_results">
+         <li (click)="addTrack(item)"  class="search-bar_results_track" *ng-for="#item of items">
+            {{ item.user.username }} - {{ item.title }}
+        </li>
+      </ul>
     </div>
-    <ul *ng-if="items" class="search_results">
-       <li (click)="addTrack(item)"  class="search_results_track" *ng-for="#item of items">
-          <span>{{ item.user.username }} - {{ item.title }}</span>
-      </li>
-    </ul>
-  </div>
   `,
   directives:[FORM_DIRECTIVES, NgIf, NgFor],
   events: ['select'],

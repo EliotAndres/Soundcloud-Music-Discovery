@@ -30,24 +30,27 @@ body {
 	family: $primary-font;
     weight: 300;
   }
-  color: $color-1;
+  color: $grey;
+  margin: 0;
+  padding: 0;
   text-align: center;
   background-color: $background-color;
+  margin-top: 80px;
   padding-bottom: 80px;
 }
 
 a {
-  color: white;
+  color: $grey;
   text-decoration: none;
 }
 
-h1, h2 {
-  font-family: $secondary-font;
-
-}
 
 .page-wrapper {
   margin-bottom: 70px;
+}
+
+app {
+  margin-top: 50px;
 }
 /* --------------------------------
 
@@ -61,34 +64,76 @@ Patterns - reusable parts of our design
 
 /* --------------------------------
 
-Header
+Hero
 
 -------------------------------- */
-.logo {
-  max-width: 100%;
-  margin: 50px auto;
-}
+.hero {
+  text-align: center;
+  opacity: 1;
+  transition: all 1s;
 
-.headline{
-    padding-top: 20px;
-    font-style: italic;
+  &.hidden{
+    opacity: 0;
+  }
+
+  &_headline{
+    font-family: Pacifico;
+    font-size: 44px;
+    margin-top: 155px;
+    margin-bottom: 0;
+    font-weight: normal;
+    color: #4d4d4d;
+  }
+
+  &_sub-headline{
+    font-size: 13px;
+    font-family: $primary-font;
+    font-weight: lighter;
+    font-variant: normal;
+    text-transform: uppercase;
+    color: #666666;
+    margin-top: 5px;
+    letter-spacing: 0.3em;
+  }
 }
 
 /* --------------------------------
 
-Main
+Header
 
 -------------------------------- */
 
-.search{
+.header {
+  position: fixed;
+  width: 100%;
+  background: white;
+  left: 0;
+  top: 0;
+  padding: 10px;
+  height: 60px;
+  box-shadow: 1px 1px 2px 1px #ababab;
+  z-index: 200;
+  display: flex;
+
+  &_logo {
+    height: 100%;
+    margin-left: 40px;
+  }
+
+}
+
+.search-bar{
+  display: inline-block;
   max-width: 500px;
   margin: 0 auto;
   padding: 0 20px;
   position: relative;
+  flex-grow: 1;
+  min-width: 0;
 
   &_form{
     display: flex;
-    height: 50px;
+    height: 38px;
     line-height: 40px;
 
     &_button {
@@ -96,28 +141,28 @@ Main
       background: none;
       text-transform: uppercase;
       border: none;
-      font-size: 1.1em;
+      font-size: 1em;
       border-radius: 2px;
       letter-spacing: 1px;
-      color: $color-1;
+      color: $grey;
       width: 50px;
       box-shadow: none !important; //We have to do this to override ionic styles ...
       margin: 0 auto 0 -51px;
     }
 
     &_input {
-      background: $lightgrey;
+      background: $white;
       padding: 0.5em 1em 0.5em 0.7em;
       flex-grow: 1;
       margin:0 auto;
-      color: $color-1;
-      border-radius: 2px;
+      color: $grey;
+      border-radius: 5px;
       max-width: 100%;
-      font-size: 1.3em;
+      font-size: 1em;
       overflow: visible;
       transition: opacity 0.3s ease 0s;
       box-shadow: none;
-      border: 1px solid $color-1;
+      border: 1px solid $grey;
 
       &::-webkit-input-placeholder {
         color: lighten($color-1, 20);
@@ -129,7 +174,7 @@ Main
   &_results {
     overflow: visible;
     list-style:none;
-    color: white;
+    color: $grey;
     max-width: 500px;
     margin: 0 auto;
     text-align: left;
@@ -139,16 +184,16 @@ Main
 
     &_track{
       padding: 5px 1em;
-      background: lightcoral;
+      background: $white;
       z-index: 2;
-      border-bottom: 1px solid $color-1;
+      border-bottom: 1px solid grey;
       overflow:hidden;
       white-space:nowrap;
       text-overflow:ellipsis;
       position: relative;
 
     &:hover, &:active, &:focus{
-      background: $color-1;
+      background: $lightgrey;
       cursor: pointer;
     }
 
@@ -156,28 +201,12 @@ Main
   }
 }
 
-.track.ng-enter, .track.ng-move {
-  -webkit-transition:0.5s linear all;
-  -moz-transition:0.5s linear all;
-  -o-transition:0.5s linear all;
-  transition:0.5s linear all;
-  opacity:0;
-}
-
-.track.ng-enter.ng-enter-active,
-.track.ng-move.ng-move-active {
-  opacity:1;
-}
-
-.track.ng-enter-stagger {
-  transition-delay: 0.05s;
-  animation-delay: 0.05s;
-}
-
-.venn-result{
+.results{
   list-style:none;
   padding: 20px;
   margin-top: 0;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .track{

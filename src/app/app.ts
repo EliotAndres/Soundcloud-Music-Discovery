@@ -37,35 +37,40 @@ var config = require('./config/config');
   directives: [SearchBar, NgStyle, StatusBar],
   providers: [MusicPlayerService],
   template: `
-  <div>
-    <search-bar (select)="useTrack($event)"></search-bar>
 
-    <img class="logo" src="img/logo.png" />
-
-    <div class="headline" *ng-if="selectedTrack.title && !error">
-      Tracks in playlists containing {{selectedTrack.user.username}} - {{selectedTrack.title}} :
-    </div>
-
-    <div class="loader-wrapper" *ng-if="loading">
-      <div class="loader">
-      </div>
-    </div>
-
-    <div class="error-wrapper" *ng-if="error">
-      {{error}}
-    </div>
-
-    <ul *ng-if="tracks" class="venn-result">
-       <li class="track" *ng-for="#track of tracks">
-          <div class="track_background-image"  [ng-style]="{'background-image': 'url(' + track.artwork_url + ')'}">
-          </div>
-          <div class="track_content" [ng-class]="{active: track.id == getCurrentTrack().id}" (click)="playTrack(track)">
-            {{ track.user.username }} {{ track.title }} ({{ track.total_count }})
-          </div>
-      </li>
-    </ul>
-
+  <div class="header">
+    <img class="header_logo" src="img/header-logo.png" />
+    <search-bar class="search-bar" (select)="useTrack($event)"></search-bar>
   </div>
+
+  <div class="hero" [hidden]="tracks" >
+     <h1 class="hero_headline">Music Discovery Tool</h1>
+     <h2 class="hero_sub-headline">Powered by Soundcloud</h2>
+  </div>
+
+  <div class="loader-wrapper" *ng-if="loading">
+    <div class="loader">
+    </div>
+  </div>
+
+  <div class="info" *ng-if="selectedTrack.title && !error">
+    Tracks in playlists containing {{selectedTrack.user.username}} - {{selectedTrack.title}} :
+  </div>
+
+  <div class="error-wrapper" *ng-if="error">
+    {{error}}
+  </div>
+
+  <ul *ng-if="tracks" class="results">
+     <li class="track" *ng-for="#track of tracks">
+        <div class="track_background-image"  [ng-style]="{'background-image': 'url(' + track.artwork_url + ')'}">
+        </div>
+        <div class="track_content" [ng-class]="{active: track.id == getCurrentTrack().id}" (click)="playTrack(track)">
+          {{ track.user.username }} {{ track.title }} ({{ track.total_count }})
+        </div>
+    </li>
+  </ul>
+
   <status-bar></status-bar>
   `
 })
