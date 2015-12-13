@@ -12,7 +12,7 @@
     "watch": "webpack --watch",
     "server": "webpack-dev-server --inline --colors --display-error-details --display-cached --port 3000",
     "express": "node ./server/express-server-example.js",
-    "prod-server": "export NODE_ENV=production && node ./server/api.js",
+    "prod-server": "export NODE_ENV=production && webpack && node ./server/server.js",
     "express-install": "npm install express connect-history-api-fallback morgan body-parser cors --save",
     "webdriver-update": "webdriver-manager update",
     "webdriver-start": "webdriver-manager start",
@@ -37,11 +37,16 @@
   "dependencies": {
     "@reactivex/rxjs": "5.0.0-alpha.7",
     "angular2": "2.0.0-alpha.46",
+    "body-parser": "^1.14.1",
+    "connect-history-api-fallback": "^1.1.0",
     "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "morgan": "^1.6.1",
     "reflect-metadata": "0.1.2",
     "zone.js": "0.5.8"
   },
   "devDependencies": {
+    "bluebird": "^3.0.6",
     "css-loader": "^0.21.0",
     "exports-loader": "0.6.2",
     "expose-loader": "0.7.0",
@@ -56,6 +61,7 @@
     "karma-phantomjs-launcher": "^0.2.1",
     "karma-sourcemap-loader": "^0.3.6",
     "karma-webpack": "1.7.0",
+    "lodash": "^3.10.1",
     "morgan": "^1.6.1",
     "node-sass": "^3.4.2",
     "object-assign": "4.0.1",
