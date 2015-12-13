@@ -103,8 +103,6 @@ export class MusicPlayerService {
 
     this.stop();
 
-    console.log(this.trackList.indexOf(this.getCurrentTrack()));
-
     var nextPosition = this.trackList.indexOf(this.getCurrentTrack()) + 1;
 
     if(this.trackList.length > nextPosition) {

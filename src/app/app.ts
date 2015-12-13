@@ -33,23 +33,26 @@ var config = require('./config/config');
  * Top Level Component
  */
 @Component({
-  selector: 'app', // <app></app>
+  selector: 'app',
   directives: [SearchBar, NgStyle, StatusBar],
   providers: [MusicPlayerService],
-  // Every Angular template is first compiled by the browser before Angular runs it's compiler
   template: `
   <div>
     <search-bar (select)="useTrack($event)"></search-bar>
 
     <img class="logo" src="img/logo.png" />
 
-    <div class="headline" *ng-if="currentTrack.title">
-      Tracks in playlists containing {{currentTrack.user.username}} - {{currentTrack.title}} :
+    <div class="headline" *ng-if="selectedTrack.title && !error">
+      Tracks in playlists containing {{selectedTrack.user.username}} - {{selectedTrack.title}} :
     </div>
 
     <div class="loader-wrapper" *ng-if="loading">
       <div class="loader">
       </div>
+    </div>
+
+    <div class="error-wrapper" *ng-if="error">
+      {{error}}
     </div>
 
     <ul *ng-if="tracks" class="venn-result">
@@ -69,8 +72,10 @@ var config = require('./config/config');
 
 export class App {
   tracks;
-  currentTrack = {user:{}};
+  selectedTrack = {user:{}};
+
   loading:boolean = false;
+  error:string = null;
 
   constructor(public musicPlayerService: MusicPlayerService, public http: Http) {
     this.musicPlayerService.init();
@@ -78,19 +83,31 @@ export class App {
 
   useTrack(event) {
     if (typeof event.track === 'undefined') return;
-    this.currentTrack = event.track;
+
+    //Reset state
     this.loading = true;
-    var url = config.apiUrl + '/soundcloud?trackIds=' + event.track.id ;
+    this.error = null;
     this.musicPlayerService.clearPlaylist();
+
+    this.selectedTrack = event.track;
+
+    var url = config.apiUrl + '/soundcloud?trackIds=' + event.track.id ;
     this.http.get(url)
-      .map((res: Response) => res.json())
       .subscribe(
-        data => this.addTracksToPlaylist(data),
+        (res: Response) => {
+          if(res.status != 200){
+            this.error = "There has been a server error. Please try another track.";
+            console.log(this.error, res);
+          }else {
+            this.addTracksToPlaylist(res.json());
+          }
+        },
         (err) =>  {
-          this.tracks = {};
-          console.log('There has been an error', err);
+          this.error = "There has been a network error. Please try again.";
+          console.log(this.error, err);
         },
         () => this.loading = false
+
       );
   }
 
@@ -106,8 +123,7 @@ export class App {
   }
 
   getCurrentTrack() {
-    if (typeof this.musicPlayerService.getCurrentTrack() === 'undefined') return {user:{}};
-    else return this.musicPlayerService.getCurrentTrack();
+    return this.musicPlayerService.getCurrentTrack();
   }
 
 }

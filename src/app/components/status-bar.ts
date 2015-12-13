@@ -21,7 +21,7 @@ import {MusicPlayerService} from "../service/music-player";
 
     <div class="status_wrapper" *ng-if="getCurrentTrack().title">
       <div accesskey="" class="status_wrapper_artist">{{ getCurrentTrack().user.username}}</div>
-      <div class="status_wrapper_title">{{ getCurrentTrack().title}}</div>
+      <div class="status_wrapper_title"><a href="{{getCurrentTrack().permalink_url}}" target="_blank">{{ getCurrentTrack().title}}</a></div>
       <div seek-bar class="progress" >
         <div class="progress_bar"></div>
         <div class="progress_content" seek-bar-status></div>
