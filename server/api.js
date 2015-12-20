@@ -15,15 +15,18 @@ var scService = require('./service/soundcloud');
  * @params : trackIds, must be trackIds passed as values with comma separator
  * */
 router.get('/soundcloud', function(req, res, next) {
-    trackIds = req.query.trackIds.split(',');
-    Promise.map(trackIds, function(trackId) {
-        return scService.findPlaylistFromTrackId(trackId);
-    }).then(function(results) {
-        res.json(scService.sortTracks(results, trackIds));
-    }).catch(function (err) {
-        console.log(err);
-        res.status(500).json(err);
-    });
+  trackIds = req.query.trackIds.split(',');
+  strictMode = req.query.strictMode || true;
+  limit = req.query.limit || 20;
+
+  Promise.map(trackIds, function(trackId) {
+    return scService.findPlaylistsFromTrackId(trackId);
+  }).then(function(results) {
+    res.json(scService.sortTracks(results, trackIds, strictMode, limit));
+  }).catch(function (err) {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 module.exports = router;

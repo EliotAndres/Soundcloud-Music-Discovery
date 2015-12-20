@@ -60,34 +60,40 @@ var fetchPlaylistFromTrackId = function(trackId, maxRound) {
 
 
 module.exports = {
-
-
-  findPlaylistFromTrackId: function (trackId) {
-  return db.playlistcollection.findOne({
-    trackId: trackId
-  }).then(function (result) {
-    if (result != null) {
-      return result.response;
-    } else {
-      return fetchPlaylistFromTrackId(trackId, 2);
-    }
-  })
-},
-  sortTracks: function (results, trackIds) {
+  findPlaylistsFromTrackId: function (trackId) {
+    return db.playlistcollection.findOne({
+      trackId: trackId
+    }).then(function (result) {
+      if (result != null) {
+        return result.response;
+      } else {
+        return fetchPlaylistFromTrackId(trackId, 2);
+      }
+    })
+  },
+  sortTracks: function (results, trackIds, strictMode, limit) {
     var countedTracks = {};
-    for (k = 0; k < results.length; k++) {
+    for (var k = 0; k < results.length; k++) {
       var collection = results[k];
       for (var key in collection) {
 
         var tracks = collection[key].tracks;
 
-        for (i = 0; i < tracks.length; i++) {
-          if (countedTracks[tracks[i].id] === undefined) {
-            countedTracks[tracks[i].id] = tracks[i];
-            countedTracks[tracks[i].id].total_count = 1;
-          } else {
-            countedTracks[tracks[i].id].total_count++;
+        for (var i = 0; i < tracks.length; i++) {
+          var j = tracks[i].id;
+
+          if (typeof countedTracks[j] === 'undefined') {
+            countedTracks[j] = tracks[i];
+            countedTracks[j].total_count = 1;
+            countedTracks[j].linkedTracks = [];
+          } else{
+            countedTracks[j].total_count++;
           }
+
+          if(strictMode && countedTracks[j].linkedTracks.indexOf(k) === -1){
+            countedTracks[j].linkedTracks.push(k);
+          }
+
         }
       }
     }
@@ -96,14 +102,18 @@ module.exports = {
 
     //Remove searched track and tracks where count < 0
     var filteredTracks = _.filter(countedTracksArray, function (track) {
-      return track.total_count > 1 && !_.includes(trackIds, track.id.toString());
+      return track.total_count > 1 && !_.includes(trackIds, track.id.toString())
+        && (!strictMode || track.linkedTracks.length == results.length);
     });
 
     //Sort tracks by count
-    var response = _.sortBy(filteredTracks, function (track) {
+    var sortedTracks = _.sortBy(filteredTracks, function (track) {
       return -track.total_count;
     });
 
+    response = _.chunk(sortedTracks, limit)[0];
+
+    if(typeof response === 'undefined') response = [];
     return response;
 
   }

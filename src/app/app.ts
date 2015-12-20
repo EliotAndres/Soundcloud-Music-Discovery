@@ -46,6 +46,15 @@ var config = require('./config/config');
   <div class="hero" [hidden]="tracks" >
      <h1 class="hero_headline">Music Discovery Tool</h1>
      <h2 class="hero_sub-headline">Powered by Soundcloud</h2>
+     <p>{{selectedTracks}}</p>
+  </div>
+
+  <div class="info" *ng-if="selectedTracks.length > 0 && !error">
+    Tracks in playlists containing :
+
+    <li *ng-for="#track of selectedTracks" >
+       {{track.user.username}} - {{track.title}} <a href="" (click)="removeTrack(track)">[remove]</a>
+    </li>
   </div>
 
   <div class="loader-wrapper" *ng-if="loading">
@@ -53,13 +62,13 @@ var config = require('./config/config');
     </div>
   </div>
 
-  <div class="info" *ng-if="selectedTrack.title && !error">
-    Tracks in playlists containing {{selectedTrack.user.username}} - {{selectedTrack.title}} :
-  </div>
-
   <div class="error-wrapper" *ng-if="error">
     {{error}}
   </div>
+
+  <h1 *ng-if="tracks && tracks.length < 1 && selectedTracks.length  > 0" class="error-wrapper">
+    No track has been found
+  </h1>
 
   <ul *ng-if="tracks" class="results">
      <li class="track" *ng-for="#track of tracks">
@@ -78,7 +87,7 @@ var config = require('./config/config');
 export class App {
   tracks;
   selectedTrack = {user:{}};
-
+  selectedTracks = [];
   loading:boolean = false;
   error:string = null;
 
@@ -96,7 +105,25 @@ export class App {
 
     this.selectedTrack = event.track;
 
-    var url = config.apiUrl + '/soundcloud?trackIds=' + event.track.id ;
+    this.selectedTracks.push(event.track);
+
+    this.updateSelection();
+  }
+
+
+  removeTrack(track) {
+    var index = this.selectedTracks.indexOf(track);
+    if(index > -1) this.selectedTracks.splice(index);
+    this.updateSelection();
+    console.log(this.selectedTracks);
+  }
+
+  updateSelection(){
+    var trackIds = this.selectedTracks[0].id;
+    for (var i = 1; i < this.selectedTracks.length; i ++) {
+      trackIds += "," + this.selectedTracks[i].id;
+    }
+    var url = config.apiUrl + '/soundcloud?trackIds=' + trackIds;
     this.http.get(url)
       .subscribe(
         (res: Response) => {
@@ -116,12 +143,15 @@ export class App {
       );
   }
 
+
+
   addTracksToPlaylist(data){
     this.tracks = data;
     for (var i = 0; i < data.length; i ++) {
       this.musicPlayerService.addToPlaylist(data[i]);
     }
   }
+
 
   playTrack(track) {
     this.musicPlayerService.playTrack(track);
